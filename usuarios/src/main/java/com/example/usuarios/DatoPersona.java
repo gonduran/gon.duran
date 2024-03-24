@@ -1,7 +1,5 @@
 package com.example.usuarios;
 
-import java.util.List;
-
 public class DatoPersona {
 
     private int idPersona;
@@ -11,10 +9,9 @@ public class DatoPersona {
     private String rut;
     private String telefono;
     private String email;
-    private List<Direccion> direcciones;
 
     public DatoPersona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, 
-                    String rut,  String telefono, String email, List<Direccion> direcciones) {
+                    String rut,  String telefono, String email) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -22,7 +19,6 @@ public class DatoPersona {
         this.rut = rut;
         this.telefono = telefono;
         this.email = email;
-        this.direcciones = direcciones;
     }
 
     // Getters y setters
@@ -54,9 +50,4 @@ public class DatoPersona {
     public String getEmail() {
         return email;
     }
-
-    public List<Direccion> getDirecciones() {
-        return direcciones;
-    }
-
 }

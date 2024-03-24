@@ -11,10 +11,12 @@ public class Usuario {
     private boolean habilitado;
     private boolean tokenExpirado;
     private List<DatoPersona> datospersonales;
+    private List<Direccion> direcciones;
     private List<Rol> roles;
+    private List<Privilegio> privilegios;
 
     public Usuario(int idUsuario, String usuario, String password, String email, boolean habilitado, boolean tokenExpirado,
-                    List<DatoPersona> datospersonales, List<Rol> roles) {
+                    List<DatoPersona> datospersonales, List<Direccion> direcciones, List<Rol> roles, List<Privilegio> privilegios) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.password = password;
@@ -22,7 +24,9 @@ public class Usuario {
         this.habilitado = habilitado;
         this.tokenExpirado = tokenExpirado;
         this.datospersonales = datospersonales;
+        this.direcciones = direcciones;
         this.roles = roles;
+        this.privilegios = privilegios;
     }
 
     // Getters y setters
@@ -55,8 +59,15 @@ public class Usuario {
         return datospersonales;
     }
 
+    public List<Direccion> getDirecciones() {
+        return direcciones;
+    }
+
     public List<Rol> getRoles() {
         return roles;
     }
 
+    public List<Privilegio> getPrivilegios() {
+        return privilegios;
+    }
 }

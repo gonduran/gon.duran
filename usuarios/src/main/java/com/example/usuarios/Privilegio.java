@@ -19,5 +19,4 @@ public class Privilegio {
     public String getDescripcion() {
         return descripcion;
     }
-
 }
