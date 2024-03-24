@@ -56,47 +56,54 @@ public class PacienteController {
                                                     new HistorialMedico(2,"alergias","enfermedadesPrevias",
                                                                     "procedimientos","tipoSangre", "23/08/2023"))));
     }
-    
+
+    //devuelve la informacion de todos los pacientes
     @GetMapping("/pacientes")
     public List<Paciente> getPacientes() {
+        System.out.println("Devuelve la informacion de todos los pacientes");
         return pacientes;
     }
     
-    @GetMapping("/pacientes/{id}")
-    public Paciente getPacienteById(@PathVariable int id) {
+    //devuelve la informacion de un paciente especifico
+    @GetMapping("/pacientes/{idPaciente}")
+    public Paciente getPacienteById(@PathVariable("idPaciente") int idPaciente) {
         for (Paciente paciente : pacientes) {
-            if (paciente.getIdPaciente() == id) {
+            if (paciente.getIdPaciente() == idPaciente) {
+                System.out.println("Devuelve la informacion del paciente " + idPaciente);
                 return paciente;
             }
         }
+        System.out.println("No encontro información del paciente " + idPaciente);
         return null;
     }
 
+    //devuelve la informacion de las consultas de un paciente especifico
     @GetMapping(path = "/pacientes/{idPaciente}/consultas")
 	public List<Consulta> listarConsultas(@PathVariable("idPaciente") int idPaciente) {
 
 		for (Paciente paciente : pacientes) {
-
 			if (paciente.getIdPaciente() == idPaciente) {
-
 				List<Consulta> consultas = paciente.getConsultas();
+                System.out.println("Devuelve la informacion de las consultas del paciente " + idPaciente);
                 return consultas;
 			}
 		}
+        System.out.println("No encontro información de las consultas del paciente " + idPaciente);
 		return null;
 	}
 
+    //devuelve la informacion del historial medico de un paciente especifico
     @GetMapping(path = "/pacientes/{idPaciente}/historialmedico")
 	public List<HistorialMedico> listarHistorialMedico(@PathVariable("idPaciente") int idPaciente) {
 
 		for (Paciente paciente : pacientes) {
-
 			if (paciente.getIdPaciente() == idPaciente) {
-
 				List<HistorialMedico> historialMedico = paciente.getHistorialMedico();
+                System.out.println("Devuelve la informacion del historial medico del paciente " + idPaciente);
                 return historialMedico;
 			}
 		}
+        System.out.println("No encontro información del historial medico del paciente " + idPaciente);
 		return null;
 	}
 
