@@ -1,4 +1,4 @@
-package com.example.usuarios;
+package com.example.usuarios.model;
 
 public class Rol {
 
