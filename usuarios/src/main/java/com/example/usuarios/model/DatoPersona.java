@@ -1,30 +1,56 @@
 package com.example.usuarios.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
+
+@Entity
+@Table(name = "DatoPersona")
 public class DatoPersona {
 
-    private int idPersona;
-    private String nombre;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
-    private String rut;
-    private String telefono;
-    private String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPersona")
+    private Long id;
 
-    public DatoPersona(int idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, 
-                    String rut,  String telefono, String email) {
-        this.idPersona = idPersona;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.rut = rut;
-        this.telefono = telefono;
-        this.email = email;
-    }
+    @NotBlank(message = "No puede ingresar un nombre vacio")
+    @NotNull(message = "Nombre obligatorio")
+    @Column(name= "nombre")
+    private String nombre;
+
+    @NotBlank(message = "No puede ingresar un apellido paterno vacio")
+    @NotNull(message = "Apellido paterno obligatorio")
+    @Column(name= "apellidoPaterno")
+    private String apellidoPaterno;
+
+    @NotBlank(message = "No puede ingresar un apellido materno vacio")
+    @NotNull(message = "Apellido materno obligatorio")
+    @Column(name= "apellidoMaterno")
+    private String apellidoMaterno;
+
+    @NotBlank(message = "No puede ingresar un rut vacio")
+    @NotNull(message = "Rut obligatorio")
+    @Column(name= "rut")
+    private String rut;
+
+    @NotBlank(message = "No puede ingresar un telefono vacio")
+    @NotNull(message = "Telefono obligatorio")
+    @Column(name= "telefono")
+    private String telefono;
+
+    @NotBlank(message = "No puede ingresar un email vacio")
+    @NotNull(message = "Email obligatorio")
+    @Column(name= "email")
+    private String email;
 
     // Getters y setters
 
-    public int getIdPersona() {
-        return idPersona;
+    public Long getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -49,5 +75,33 @@ public class DatoPersona {
 
     public String getEmail() {
         return email;
+    }
+
+    public void getIdPersona(Long id) {
+        this.id = id;
+    }
+
+    public void getNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void getApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public void getApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public void getRut(String rut) {
+        this.rut = rut;
+    }
+
+    public void getTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

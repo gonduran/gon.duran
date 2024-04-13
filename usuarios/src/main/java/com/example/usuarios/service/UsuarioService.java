@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface UsuarioService {
     List<Usuario> getAllUsuarios();
-    Optional<Usuario> getUsuarioById(Long idUsuario);
+    Optional<Usuario> getUsuarioById(Long id);
     Usuario createUsuario(Usuario usuario);
-    Usuario updateUsuario(Long idUsuario,Usuario usuario);
-    void deleteUsuario(Long idUsuario);
+    Usuario updateUsuario(Long id,Usuario usuario);
+    void deleteUsuario(Long id);
 }
