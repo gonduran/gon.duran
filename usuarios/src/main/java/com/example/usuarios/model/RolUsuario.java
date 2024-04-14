@@ -2,6 +2,8 @@ package com.example.usuarios.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class RolUsuario {
     private String descripcion;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private List<Usuario> usuarios;
 
     // Getters y setters

@@ -1,7 +1,6 @@
 package com.example.pacientes.model;
 
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class HistorialMedico {
     @NotBlank(message = "No puede ingresar fecha historial medico vacia")
     @NotNull(message = "Fecha historial medico obligatorio")
     @Column(name = "fechaHistorialMedico")
-    private Date fechaHistorialMedico;
+    private String fechaHistorialMedico;
 
     @Column(name = "antecedentes")
     private String antecedentes;
@@ -54,6 +53,7 @@ public class HistorialMedico {
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
+    @JsonBackReference
     private Paciente paciente;
 
    // Getters y setters
@@ -66,7 +66,7 @@ public class HistorialMedico {
         return nombreMedico;
     }
 
-    public Date getFechaHistorialMedico() {
+    public String getFechaHistorialMedico() {
         return fechaHistorialMedico;
     }
 
@@ -106,7 +106,7 @@ public class HistorialMedico {
         this.nombreMedico = nombreMedico;
     }
 
-    public void setFechaHistorialMedico(Date fechaHistorialMedico) {
+    public void setFechaHistorialMedico(String fechaHistorialMedico) {
         this.fechaHistorialMedico = fechaHistorialMedico;
     }
 

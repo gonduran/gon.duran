@@ -9,9 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
-
-import java.util.Date;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Paciente")
@@ -60,7 +59,7 @@ public class Paciente {
     @NotBlank(message = "No puede ingresar fecha nacimiento vacio")
     @NotNull(message = "Fecha nacimiento obligatorio")
     @Column(name = "fechaNacimiento")
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 
     @Column(name = "tipoSangre")
     private String tipoSangre;
@@ -68,12 +67,12 @@ public class Paciente {
     @Column(name = "contactoEmerg")
     private String contactoEmerg;
 
-    //private List<Consulta> consultas;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Consulta> consultas;
 
-    //private List<HistorialMedico> historialMedico;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<HistorialMedico> historialMedico;
 
     // Getters y setters
@@ -106,7 +105,7 @@ public class Paciente {
         return telefono;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -158,7 +157,7 @@ public class Paciente {
         this.telefono = telefono;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

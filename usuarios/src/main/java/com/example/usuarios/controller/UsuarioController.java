@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.usuarios.model.Usuario;
-import com.example.usuarios.model.DatoPersona;
 import com.example.usuarios.model.Direccion;
 import com.example.usuarios.model.RolUsuario;
 import com.example.usuarios.service.UsuarioService;
-import com.example.usuarios.service.DatoPersonaService;
 import com.example.usuarios.service.DireccionService;
 import com.example.usuarios.service.RolUsuarioService;
 
@@ -36,8 +34,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
-    private DatoPersonaService datoPersonaService;
-    @Autowired
     private DireccionService direccionService;
     @Autowired
     private RolUsuarioService rolUsuarioService;
@@ -48,14 +44,6 @@ public class UsuarioController {
         log.info("GET /usuarios");
         log.info("Devuelve la informacion de todos los usuarios");
         return usuarioService.getAllUsuarios();
-    }
-
-    //devuelve la informacion de todos los dato persona
-    @GetMapping("/datopersona")
-    public List<DatoPersona> getAllDatoPersonas() {
-        log.info("GET /usuarios/datopersonas");
-        log.info("Devuelve la informacion de todos los dato persona");
-        return datoPersonaService.getAllDatoPersonas();
     }
 
     //devuelve la informacion de todos las direcciones
@@ -85,19 +73,6 @@ public class UsuarioController {
         }
         log.info("Se encontró el usuario con ID {}", idUsuario);
         return ResponseEntity.ok(usuario);
-    }
-
-    //devuelve la informacion de un dato persona especifico
-    @GetMapping("/datopersona/{idDatoPersona}")
-    public ResponseEntity<Object> getDatoPersonaById(@PathVariable("idDatoPersona") Long idDatoPersona) {
-        log.info("GET /usuarios/datopersona/{idDatoPersona}");
-        Optional<DatoPersona> datoPersona = datoPersonaService.getDatoPersonaById(idDatoPersona);
-        if (datoPersona.isEmpty()) {
-            log.error("No se encontró el dato persona con ID {}", idDatoPersona);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el dato persona con ID " + idDatoPersona));
-        }
-        log.info("Se encontró el dato persona con ID {}", idDatoPersona);
-        return ResponseEntity.ok(datoPersona);
     }
 
     //devuelve la informacion de una direccion especifico
@@ -138,18 +113,6 @@ public class UsuarioController {
         return ResponseEntity.ok(createUsuario);
     }
     
-    @PostMapping("/datopersona")
-    public ResponseEntity<Object> createDatoPersona(@Validated @RequestBody DatoPersona datoPersona) {
-        log.info("POST /usuarios/datopersona");
-        DatoPersona createDatoPersona = datoPersonaService.createDatoPersona(datoPersona);
-        if (createDatoPersona == null) {
-            log.error("Error al crear el dato persona {}", datoPersona);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorResponse("Error al crear el dato persona"));
-        }
-        return ResponseEntity.ok(createDatoPersona);
-    }
-    
     @PostMapping("/direccion")
     public ResponseEntity<Object> createDireccion(@Validated @RequestBody Direccion direccion) {
         log.info("POST /usuarios/direccion");
@@ -184,18 +147,6 @@ public class UsuarioController {
         }
         log.info("Se encontró el usuario con ID {}", idUsuario);
         return ResponseEntity.ok(usuarioService.updateUsuario(idUsuario, usuario));
-    }
-
-    @PutMapping("/datopersona/{idDatoPersona}")
-    public ResponseEntity<Object> updateDatoPersona(@PathVariable("idDatoPersona") Long idDatoPersona, @RequestBody DatoPersona datoPersona) {
-        log.info("PUT /usuarios/datopersona/{idDatoPersona}");
-        Optional<DatoPersona> datoPersonaFind = datoPersonaService.getDatoPersonaById(idDatoPersona);
-        if (datoPersonaFind.isEmpty()) {
-            log.error("No se encontró el dato persona con ID {}", idDatoPersona);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el dato persona con ID " + idDatoPersona));
-        }
-        log.info("Se encontró el dato persona con ID {}", idDatoPersona);
-        return ResponseEntity.ok(datoPersonaService.updateDatoPersona(idDatoPersona, datoPersona));
     }
 
     @PutMapping("/direccion/{idDireccion}")
@@ -233,19 +184,6 @@ public class UsuarioController {
         log.info("Se encontró y elimino el usuario con ID {}", idUsuario);
         usuarioService.deleteUsuario(idUsuario);
         return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse("Se encontró y elimino el usuario con ID " + idUsuario));
-    }
-
-    @DeleteMapping("/datopersona/{idDatoPersona}")
-    public ResponseEntity<Object> deleteDatoPersona(@PathVariable("idDatoPersona") Long idDatoPersona){
-        log.info("DELETE /usuarios/datopersona/{idDatoPersona}");
-        Optional<DatoPersona> datoPersonaFind = datoPersonaService.getDatoPersonaById(idDatoPersona);
-        if (datoPersonaFind.isEmpty()) {
-            log.error("No se encontró el dato persona con ID {}", idDatoPersona);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el dato persona con ID " + idDatoPersona));
-        }
-        log.info("Se encontró y elimino el dato persona con ID {}", idDatoPersona);
-        datoPersonaService.deleteDatoPersona(idDatoPersona);
-        return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse("Se encontró y elimino el dato persona con ID " + idDatoPersona));
     }
 
     @DeleteMapping("/direccion/{idDireccion}")

@@ -1,7 +1,6 @@
 package com.example.pacientes.model;
 
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,10 +43,11 @@ public class Consulta {
     @NotBlank(message = "No puede ingresar fecha consulta vacio")
     @NotNull(message = "Fecha Consulta obligatorio")
     @Column(name = "fechaConsulta")
-    private Date fechaConsulta;
+    private String fechaConsulta;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
+    @JsonBackReference
     private Paciente paciente;
 
     // Getters y setters
@@ -72,7 +72,7 @@ public class Consulta {
         return tratamiento;
     }
 
-    public Date getFechaConsulta() {
+    public String getFechaConsulta() {
         return fechaConsulta;
     }
 
@@ -96,7 +96,7 @@ public class Consulta {
         this.tratamiento = tratamiento;
     }
 
-    public void setFechaConsulta(Date fechaConsulta) {
+    public void setFechaConsulta(String fechaConsulta) {
         this.fechaConsulta = fechaConsulta;
     }
 
