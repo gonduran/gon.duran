@@ -83,31 +83,31 @@ public class Direccion {
         return tipoDireccion;
     }
 
-    public void getIdDireccion(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void getCalle(String calle) {
+    public void setCalle(String calle) {
         this.calle = calle;
     }
 
-    public void getNumero(String numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public void getComuna(String comuna) {
+    public void setComuna(String comuna) {
         this.comuna = comuna;
     }
 
-    public void getCiudad(String ciudad) {
+    public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
 
-    public void getRegion(String region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 
-    public void getTipoDireccion(String tipoDireccion) {
+    public void setTipoDireccion(String tipoDireccion) {
         this.tipoDireccion = tipoDireccion;
     }
 }

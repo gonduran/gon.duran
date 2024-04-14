@@ -82,7 +82,7 @@ public class Usuario {
         return roles;
     }
 
-    public void setIdUsuario(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

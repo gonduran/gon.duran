@@ -38,7 +38,7 @@ public class RolUsuario {
         return descripcion;
     }
 
-    public void setIdRol(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

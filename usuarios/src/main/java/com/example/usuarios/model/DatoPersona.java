@@ -77,27 +77,27 @@ public class DatoPersona {
         return email;
     }
 
-    public void getIdPersona(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void getNombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void getApellidoPaterno(String apellidoPaterno) {
+    public void setApellidoPaterno(String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
     }
 
-    public void getApellidoMaterno(String apellidoMaterno) {
+    public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public void getRut(String rut) {
+    public void setRut(String rut) {
         this.rut = rut;
     }
 
-    public void getTelefono(String telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
