@@ -25,8 +25,8 @@ public class PacienteServiceImpl implements PacienteService{
     }
     
     @Override
-    public Paciente createPaciente(Paciente usuario){
-        return pacienteRepository.save(usuario);
+    public Paciente createPaciente(Paciente paciente){
+        return pacienteRepository.save(paciente);
     }
 
     @Override

@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.validation.constraints.*;
-
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {

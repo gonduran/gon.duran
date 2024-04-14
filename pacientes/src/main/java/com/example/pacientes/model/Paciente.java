@@ -6,11 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
@@ -61,10 +57,16 @@ public class Paciente {
     @Column(name= "email")
     private String email;
 
-    @NotBlank(message = "No puede ingresar tipo dirección vacio")
-    @NotNull(message = "Tipo dirección obligatorio")
-    @Column(name = "tipoDireccion")
+    @NotBlank(message = "No puede ingresar fecha nacimiento vacio")
+    @NotNull(message = "Fecha nacimiento obligatorio")
+    @Column(name = "fechaNacimiento")
     private Date fechaNacimiento;
+
+    @Column(name = "tipoSangre")
+    private String tipoSangre;
+
+    @Column(name = "contactoEmerg")
+    private String contactoEmerg;
 
     //private List<Consulta> consultas;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
@@ -112,6 +114,14 @@ public class Paciente {
         return email;
     }
 
+    public String getTipoSangre() {
+        return tipoSangre;
+    }
+
+    public String getContactoEmerg() {
+        return contactoEmerg;
+    }
+
     public List<Consulta> getConsultas() {
         return consultas;
     }
@@ -154,6 +164,14 @@ public class Paciente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setTipoSangre(String tipoSangre) {
+        this.tipoSangre = tipoSangre;
+    }
+
+    public void setContactoEmerg(String contactoEmerg) {
+        this.contactoEmerg = contactoEmerg;
     }
 
     public void setConsultas(List<Consulta> consultas) {
