@@ -21,6 +21,11 @@ public class Consulta {
     @Column(name = "idConsulta")
     private Long id;
 
+    @NotBlank(message = "No puede ingresar nombre medico vacio")
+    @NotNull(message = "Nombre medico obligatorio")
+    @Column(name = "nombreMedico")
+    private String nombreMedico;
+
     @NotBlank(message = "No puede ingresar motivo vacio")
     @NotNull(message = "Motivo obligatorio")
     @Column(name = "motivo")
@@ -51,6 +56,10 @@ public class Consulta {
         return id;
     }
 
+    public String getNombreMedico() {
+        return nombreMedico;
+    }
+
     public String getMotivo() {
         return motivo;
     }
@@ -69,6 +78,10 @@ public class Consulta {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
     }
 
     public void setMotivo(String motivo) {

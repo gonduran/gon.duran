@@ -4,7 +4,7 @@ import com.example.pacientes.model.HistorialMedico;
 import java.util.List;
 import java.util.Optional;
 
-public interface HistorialMedico {
+public interface HistorialMedicoService {
     List<HistorialMedico> getAllHistorialMedicos();
     Optional<HistorialMedico> getHistorialMedicoById(Long id);
     HistorialMedico createHistorialMedico(HistorialMedico historialMedico);

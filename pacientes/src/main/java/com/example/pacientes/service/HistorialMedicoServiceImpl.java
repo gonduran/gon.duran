@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class HistorialMedicoImpl implements HistorialMedicoService{
+public class HistorialMedicoServiceImpl implements HistorialMedicoService{
     @Autowired
     private HistorialMedicoRepository historialMedicoRepository;
 
