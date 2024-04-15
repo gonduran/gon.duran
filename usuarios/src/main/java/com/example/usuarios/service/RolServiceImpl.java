@@ -3,34 +3,34 @@ package com.example.usuarios.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.usuarios.model.RolUsuario;
+import com.example.usuarios.model.Rol;
 import com.example.usuarios.repository.RolUsuarioRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RolUsuarioServiceImpl implements RolUsuarioService {
+public class RolServiceImpl implements RolService {
     @Autowired
     private RolUsuarioRepository rolUsuarioRepository;
 
     @Override
-    public List<RolUsuario> getAllRolUsuarios() {
+    public List<Rol> getAllRolUsuarios() {
         return rolUsuarioRepository.findAll();
     }
 
     @Override
-    public Optional<RolUsuario> getRolUsuarioById(Long id) {
+    public Optional<Rol> getRolUsuarioById(Long id) {
         return rolUsuarioRepository.findById(id);
     }
     
     @Override
-    public RolUsuario createRolUsuario(RolUsuario rolUsuario){
+    public Rol createRolUsuario(Rol rolUsuario){
         return rolUsuarioRepository.save(rolUsuario);
     }
 
     @Override
-    public RolUsuario updateRolUsuario(Long id, RolUsuario rolUsuario){
+    public Rol updateRolUsuario(Long id, Rol rolUsuario){
         if(rolUsuarioRepository.existsById(id)){
             rolUsuario.setId(id);
             return rolUsuarioRepository.save(rolUsuario);

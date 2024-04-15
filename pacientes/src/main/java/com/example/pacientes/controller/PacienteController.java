@@ -102,7 +102,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createUsuario(@Validated @RequestBody Paciente paciente) {
+    public ResponseEntity<Object> createPaciente(@Validated @RequestBody Paciente paciente) {
         log.info("POST /pacientes");
         Paciente createPaciente = pacienteService.createPaciente(paciente);
         if (createPaciente == null) {

@@ -12,9 +12,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -74,12 +73,21 @@ public class Usuario {
     @JsonManagedReference
     private List<Direccion> direcciones;
 
-    @ManyToMany
-    @JoinTable(name = "usuario_rol",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    @JsonManagedReference
-    private List<RolUsuario> roles;
+    @JoinTable(
+        name = "rel_usuario_rol",
+        joinColumns = @JoinColumn(name = "fk_usuario", nullable = false),
+        inverseJoinColumns = @JoinColumn(name="fk_rol", nullable = false)
+    )
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Rol> roles;
+   
+    public void addRol(Rol rol){
+        if(this.roles == null){
+            this.roles = new ArrayList<>();
+        }
+        
+        this.roles.add(rol);
+    }
 
     // Getters y setters
 
@@ -123,11 +131,11 @@ public class Usuario {
         return email;
     }
 
-    public List<Direccion> getDireccion() {
+    public List<Direccion> getDirecciones() {
         return direcciones;
     }
 
-    public List<RolUsuario> getRolUsuario() {
+    public List<Rol> getRolUsuario() {
         return roles;
     }
 
@@ -171,11 +179,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public void setDireccion(List<Direccion> direcciones) {
+    public void setDirecciones(List<Direccion> direcciones) {
         this.direcciones = direcciones;
     }
 
-    public void setRolUsuario(List<RolUsuario> roles) {
+    public void setRolUsuario(List<Rol> roles) {
         this.roles = roles;
     }
 }

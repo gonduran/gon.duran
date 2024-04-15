@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.usuarios.model.Usuario;
 import com.example.usuarios.model.Direccion;
-import com.example.usuarios.model.RolUsuario;
+import com.example.usuarios.model.Rol;
 import com.example.usuarios.service.UsuarioService;
 import com.example.usuarios.service.DireccionService;
-import com.example.usuarios.service.RolUsuarioService;
+import com.example.usuarios.service.RolService;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class UsuarioController {
     @Autowired
     private DireccionService direccionService;
     @Autowired
-    private RolUsuarioService rolUsuarioService;
+    private RolService rolUsuarioService;
 
     //devuelve la informacion de todos los usuarios
     @GetMapping
@@ -56,7 +56,7 @@ public class UsuarioController {
 
     //devuelve la informacion de todos los rol usuarios
     @GetMapping("/rolusuario")
-    public List<RolUsuario> getAllRolUsuarios() {
+    public List<Rol> getAllRolUsuarios() {
         log.info("GET /usuarios/rolusuarios");
         log.info("Devuelve la informacion de todos los rol usuarios");
         return rolUsuarioService.getAllRolUsuarios();
@@ -92,7 +92,7 @@ public class UsuarioController {
     @GetMapping("/rolusuario/{idRolUsuario}")
     public ResponseEntity<Object> getRolUsuarioById(@PathVariable("idRolUsuario") Long idRolUsuario) {
         log.info("GET /usuarios/rolusuario/{idRolUsuario}");
-        Optional<RolUsuario> rolUsuario = rolUsuarioService.getRolUsuarioById(idRolUsuario);
+        Optional<Rol> rolUsuario = rolUsuarioService.getRolUsuarioById(idRolUsuario);
         if (rolUsuario.isEmpty()) {
             log.error("No se encontró el rol usuario con ID {}", idRolUsuario);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el rol usuario con ID " + idRolUsuario));
@@ -126,9 +126,9 @@ public class UsuarioController {
     }
     
     @PostMapping("/rolusuario")
-    public ResponseEntity<Object> createRolUsuario(@Validated @RequestBody RolUsuario rolUsuario) {
+    public ResponseEntity<Object> createRolUsuario(@Validated @RequestBody Rol rolUsuario) {
         log.info("POST /usuarios/rolusuario");
-        RolUsuario createRolUsuario = rolUsuarioService.createRolUsuario(rolUsuario);
+        Rol createRolUsuario = rolUsuarioService.createRolUsuario(rolUsuario);
         if (createRolUsuario == null) {
             log.error("Error al crear el rol usuario {}", rolUsuario);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -162,9 +162,9 @@ public class UsuarioController {
     }
 
     @PutMapping("/rolusuario/{idRolUsuario}")
-    public ResponseEntity<Object> updateRolUsuario(@PathVariable("idRolUsuario") Long idRolUsuario, @RequestBody RolUsuario rolUsuario) {
+    public ResponseEntity<Object> updateRolUsuario(@PathVariable("idRolUsuario") Long idRolUsuario, @RequestBody Rol rolUsuario) {
         log.info("PUT /usuarios/rolusuario/{idRolUsuario}");
-        Optional<RolUsuario> rolUsuarioFind = rolUsuarioService.getRolUsuarioById(idRolUsuario);
+        Optional<Rol> rolUsuarioFind = rolUsuarioService.getRolUsuarioById(idRolUsuario);
         if (rolUsuarioFind.isEmpty()) {
             log.error("No se encontró el rol usuario con ID {}", idRolUsuario);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el rol usuario con ID " + idRolUsuario));
@@ -179,7 +179,7 @@ public class UsuarioController {
         Optional<Usuario> usuarioFind = usuarioService.getUsuarioById(idUsuario);
         if (usuarioFind.isEmpty()) {
             log.error("No se encontró el usuario con ID {}", idUsuario);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el dato persona con ID " + idUsuario));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el usuario con ID " + idUsuario));
         }
         log.info("Se encontró y elimino el usuario con ID {}", idUsuario);
         usuarioService.deleteUsuario(idUsuario);
@@ -202,7 +202,7 @@ public class UsuarioController {
     @DeleteMapping("/rolusuario/{idRolUsuario}")
     public ResponseEntity<Object> deleteRolUsuario(@PathVariable("idRolUsuario") Long idRolUsuario){
         log.info("DELETE /usuarios/rolusuario/{idRolUsuario}");
-        Optional<RolUsuario> rolUsuarioFind = rolUsuarioService.getRolUsuarioById(idRolUsuario);
+        Optional<Rol> rolUsuarioFind = rolUsuarioService.getRolUsuarioById(idRolUsuario);
         if (rolUsuarioFind.isEmpty()) {
             log.error("No se encontró el rol usuario con ID {}", idRolUsuario);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("No se encontró el rol usuario con ID " + idRolUsuario));
