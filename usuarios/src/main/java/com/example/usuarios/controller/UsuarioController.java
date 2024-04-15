@@ -19,6 +19,7 @@ import com.example.usuarios.service.RolService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -212,6 +213,21 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse("Se encontró y elimino el rol usuario con ID " + idRolUsuario));
     }
 
+    @PostMapping("/validar")
+    public ResponseEntity<Object> validarUsuario(@RequestParam String usuario, @RequestParam String password) {
+        log.info("POST /usuarios/validar");
+        log.info("Usuario {}", usuario);
+        log.info("Password {}", password);
+        boolean esValido = usuarioService.validarUsuario(usuario, password);
+        if (esValido){
+            return ResponseEntity.ok().body("Usuario y contraseña validos");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ErrorResponse("Usuario o contraseña incorrectos."));
+        }
+    }
+    
     static class ErrorResponse {
         private final String message;
     

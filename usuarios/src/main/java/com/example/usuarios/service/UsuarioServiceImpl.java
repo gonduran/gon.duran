@@ -43,4 +43,13 @@ public class UsuarioServiceImpl implements UsuarioService{
     public void deleteUsuario(Long id){
         usuarioRepository.deleteById(id);
     }
+
+    @Override
+    public boolean validarUsuario(String usuario, String password){
+        Usuario usuarioFind = usuarioRepository.findByUsuario(usuario);
+        if (usuarioFind != null && usuarioFind.getPassword().equals(password)){
+            return true;
+        }
+        return false;
+    }
 }
