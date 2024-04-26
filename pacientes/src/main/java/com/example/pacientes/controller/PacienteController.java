@@ -50,13 +50,14 @@ public class PacienteController {
         log.info("GET /pacientes");
         log.info("Devuelve la informacion de todos los pacientes");
         List<EntityModel<Paciente>> pacientesResources = pacientes.stream()
-            .map( pelicula -> EntityModel.of(pelicula,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getPacienteById(pelicula.getId())).withSelfRel()
+            .map( paciente -> EntityModel.of(paciente,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getPacienteById(paciente.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deletePaciente(paciente.getId())).withRel("delete")
             ))
             .collect(Collectors.toList());
 
         WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllPacientes());
-        CollectionModel<EntityModel<Paciente>> resources = CollectionModel.of(pacientesResources, linkTo.withRel("pacientes"));
+        CollectionModel<EntityModel<Paciente>> resources = CollectionModel.of(pacientesResources, linkTo.withRel("all-pacientes"));
 
         return resources;
     }
@@ -74,7 +75,7 @@ public class PacienteController {
             .collect(Collectors.toList());
 
         WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllConsultas());
-        CollectionModel<EntityModel<Consulta>> resources = CollectionModel.of(consultasResources, linkTo.withRel("consultas"));
+        CollectionModel<EntityModel<Consulta>> resources = CollectionModel.of(consultasResources, linkTo.withRel("all-consultas"));
 
         return resources;
     }
@@ -92,7 +93,7 @@ public class PacienteController {
             .collect(Collectors.toList());
 
         WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllHistorialMedicos());
-        CollectionModel<EntityModel<HistorialMedico>> resources = CollectionModel.of(historialMedicosResources, linkTo.withRel("historialmedicos"));
+        CollectionModel<EntityModel<HistorialMedico>> resources = CollectionModel.of(historialMedicosResources, linkTo.withRel("all-historialmedicos"));
 
         return resources;
     }

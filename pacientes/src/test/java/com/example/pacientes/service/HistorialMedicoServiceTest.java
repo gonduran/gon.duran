@@ -58,8 +58,8 @@ public class HistorialMedicoServiceTest {
         List<HistorialMedico> resultado = historialMedicoService.getAllHistorialMedicos();
 
         assertEquals(2, resultado.size());
-        assertEquals("Gonzalo", resultado.get(0).getNombreMedico());
-        assertEquals("Josefa", resultado.get(1).getNombreMedico());
+        assertEquals("Dr Pascal", resultado.get(0).getNombreMedico());
+        assertEquals("Dra Vilches", resultado.get(1).getNombreMedico());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class HistorialMedicoServiceTest {
         Optional<HistorialMedico> resultado = historialMedicoService.getHistorialMedicoById(1L);
 
         assertTrue(resultado.isPresent());
-        assertEquals("Gonzalo", resultado.get().getNombreMedico());
+        assertEquals("Dra Vilches", resultado.get().getNombreMedico());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class HistorialMedicoServiceTest {
 
         HistorialMedico resultado = historialMedicoService.createHistorialMedico(historialMedico);
 
-        assertEquals("Gonzalo", resultado.getNombreMedico());
+        assertEquals("Dra Vilches", resultado.getNombreMedico());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class HistorialMedicoServiceTest {
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Gonzalo", resultado.getNombreMedico());
+        assertEquals("Dra Vilches", resultado.getNombreMedico());
     }
 
     @Test

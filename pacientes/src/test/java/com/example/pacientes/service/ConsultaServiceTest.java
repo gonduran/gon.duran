@@ -50,8 +50,8 @@ public class ConsultaServiceTest {
         List<Consulta> resultado = consultaService.getAllConsultas();
 
         assertEquals(2, resultado.size());
-        assertEquals("Gonzalo", resultado.get(0).getNombreMedico());
-        assertEquals("Josefa", resultado.get(1).getNombreMedico());
+        assertEquals("Dr Pascal", resultado.get(0).getNombreMedico());
+        assertEquals("Dra Vilches", resultado.get(1).getNombreMedico());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ConsultaServiceTest {
         Optional<Consulta> resultado = consultaService.getConsultaById(1L);
 
         assertTrue(resultado.isPresent());
-        assertEquals("Gonzalo", resultado.get().getNombreMedico());
+        assertEquals("Dr Pascal", resultado.get().getNombreMedico());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ConsultaServiceTest {
 
         Consulta resultado = consultaService.createConsulta(consulta);
 
-        assertEquals("Gonzalo", resultado.getNombreMedico());
+        assertEquals("Dr Pascal", resultado.getNombreMedico());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ConsultaServiceTest {
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Gonzalo", resultado.getNombreMedico());
+        assertEquals("Dr Pascal", resultado.getNombreMedico());
     }
 
     @Test
