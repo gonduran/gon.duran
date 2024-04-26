@@ -1,0 +1,8 @@
+com\example\usuarios\service\UsuarioServiceTest.class
+com\example\usuarios\service\RolServiceTest.class
+com\example\usuarios\UsuariosApplicationTests.class
+com\example\usuarios\controller\UsuarioControllerTest.class
+com\example\usuarios\repository\RolRepositoryTest.class
+com\example\usuarios\repository\UsuarioRepositoryTest.class
+com\example\usuarios\repository\DireccionRepositoryTest.class
+com\example\usuarios\service\DireccionServiceTest.class

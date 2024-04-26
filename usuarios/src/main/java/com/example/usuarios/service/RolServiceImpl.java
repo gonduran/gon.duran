@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.usuarios.model.Rol;
-import com.example.usuarios.repository.RolUsuarioRepository;
+import com.example.usuarios.repository.RolRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class RolServiceImpl implements RolService {
     @Autowired
-    private RolUsuarioRepository rolUsuarioRepository;
+    private RolRepository rolUsuarioRepository;
 
     @Override
     public List<Rol> getAllRolUsuarios() {

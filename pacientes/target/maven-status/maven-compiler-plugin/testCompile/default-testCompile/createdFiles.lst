@@ -1,0 +1,8 @@
+com\example\pacientes\PacientesApplicationTests.class
+com\example\pacientes\repository\PacienteRepositoryTest.class
+com\example\pacientes\service\ConsultaServiceTest.class
+com\example\pacientes\repository\HistorialMedicoRepositoryTest.class
+com\example\pacientes\controller\PacienteControllerTest.class
+com\example\pacientes\repository\ConsultaRepositoryTest.class
+com\example\pacientes\service\HistorialMedicoServiceTest.class
+com\example\pacientes\service\PacienteServiceTest.class

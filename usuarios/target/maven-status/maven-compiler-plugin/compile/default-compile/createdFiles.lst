@@ -1,0 +1,17 @@
+com\example\usuarios\model\Direccion.class
+com\example\usuarios\repository\UsuarioRepository.class
+com\example\usuarios\UsuariosApplication.class
+com\example\usuarios\service\UsuarioService.class
+com\example\usuarios\exception\UsuarioBadRequestException.class
+com\example\usuarios\repository\RolRepository.class
+com\example\usuarios\model\Usuario.class
+com\example\usuarios\service\RolServiceImpl.class
+com\example\usuarios\service\DireccionServiceImpl.class
+com\example\usuarios\controller\UsuarioController$ErrorResponse.class
+com\example\usuarios\service\DireccionService.class
+com\example\usuarios\repository\DireccionRepository.class
+com\example\usuarios\service\UsuarioServiceImpl.class
+com\example\usuarios\exception\UsuarioNotFoundException.class
+com\example\usuarios\service\RolService.class
+com\example\usuarios\controller\UsuarioController.class
+com\example\usuarios\model\Rol.class
