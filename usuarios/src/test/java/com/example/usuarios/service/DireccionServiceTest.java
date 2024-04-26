@@ -28,19 +28,21 @@ public class DireccionServiceTest {
     @Test
     public void getAllDireccionesTest() {
         Direccion direccion1 = new Direccion();
-        direccion1.setNombreMedico("Dr Pascal");
-        direccion1.setMotivo("Tos");
-        direccion1.setDiagnostico("Resfriado");
-        direccion1.setTratamiento("Antibiotico");
-        direccion1.setFechaConsulta("12-04-2024");
+        direccion1.setCalle("Jardin Alto");
+        direccion1.setNumero("8417");
+        direccion1.setComuna("La Florida");
+        direccion1.setCiudad("Santiago");
+        direccion1.setRegion("Metropolitana");
+        direccion1.setTipoDireccion("Particular");
         direccion1.setId(1L);
 
         Direccion direccion2 = new Direccion();
-        direccion2.setNombreMedico("Dra Vilches");
-        direccion2.setMotivo("Dolor");
-        direccion2.setDiagnostico("Apendisitis");
-        direccion2.setTratamiento("Operación");
-        direccion2.setFechaConsulta("01-04-2010");
+        direccion2.setCalle("Catedral");
+        direccion2.setNumero("1401");
+        direccion2.setComuna("Santiago");
+        direccion2.setCiudad("Santiago");
+        direccion2.setRegion("Metropolitana");
+        direccion2.setTipoDireccion("Comercial");
         direccion2.setId(2L);
 
         List<Direccion> direcciones = Arrays.asList(direccion1, direccion2);
@@ -50,18 +52,19 @@ public class DireccionServiceTest {
         List<Direccion> resultado = direccionService.getAllDirecciones();
 
         assertEquals(2, resultado.size());
-        assertEquals("Gonzalo", resultado.get(0).getNombreMedico());
-        assertEquals("Josefa", resultado.get(1).getNombreMedico());
+        assertEquals("Particular", resultado.get(0).getTipoDireccion());
+        assertEquals("Comercial", resultado.get(1).getTipoDireccion());
     }
 
     @Test
     public void getDireccionByIdTest() {
         Direccion direccion = new Direccion();
-        direccion.setNombreMedico("Dr Pascal");
-        direccion.setMotivo("Tos");
-        direccion.setDiagnostico("Resfriado");
-        direccion.setTratamiento("Antibiotico");
-        direccion.setFechaConsulta("12-04-2024");
+        direccion.setCalle("Jardin Alto");
+        direccion.setNumero("8417");
+        direccion.setComuna("La Florida");
+        direccion.setCiudad("Santiago");
+        direccion.setRegion("Metropolitana");
+        direccion.setTipoDireccion("Particular");
         direccion.setId(1L);
 
         when(direccionRepositoryMock.findById(1L)).thenReturn(Optional.of(direccion));
@@ -69,35 +72,38 @@ public class DireccionServiceTest {
         Optional<Direccion> resultado = direccionService.getDireccionById(1L);
 
         assertTrue(resultado.isPresent());
-        assertEquals("Gonzalo", resultado.get().getNombreMedico());
+        assertEquals("Particular", resultado.get().getTipoDireccion());
     }
 
     @Test
     public void createDireccionTest() {
 
         Direccion direccion = new Direccion();
-        direccion.setNombreMedico("Dr Pascal");
-        direccion.setMotivo("Tos");
-        direccion.setDiagnostico("Resfriado");
-        direccion.setTratamiento("Antibiotico");
-        direccion.setFechaConsulta("12-04-2024");
+        direccion.setCalle("Jardin Alto");
+        direccion.setNumero("8417");
+        direccion.setComuna("La Florida");
+        direccion.setCiudad("Santiago");
+        direccion.setRegion("Metropolitana");
+        direccion.setTipoDireccion("Particular");
 
         when(direccionRepositoryMock.save(any())).thenReturn(direccion);
 
         Direccion resultado = direccionService.createDireccion(direccion);
 
-        assertEquals("Gonzalo", resultado.getNombreMedico());
+        assertEquals("Particular", resultado.getTipoDireccion());
     }
 
     @Test
     public void updateDireccionTest_Exists() {
         Direccion direccion = new Direccion();
-        direccion.setNombreMedico("Dr Pascal");
-        direccion.setMotivo("Tos");
-        direccion.setDiagnostico("Resfriado");
-        direccion.setTratamiento("Antibiotico");
-        direccion.setFechaConsulta("12-04-2024");
+        direccion.setCalle("Jardin Alto");
+        direccion.setNumero("8417");
+        direccion.setComuna("La Florida");
+        direccion.setCiudad("Santiago");
+        direccion.setRegion("Metropolitana");
+        direccion.setTipoDireccion("Particular");
         direccion.setId(1L);
+
         when(direccionRepositoryMock.existsById(1L)).thenReturn(true);
         when(direccionRepositoryMock.save(direccion)).thenReturn(direccion);
 
@@ -105,18 +111,20 @@ public class DireccionServiceTest {
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Gonzalo", resultado.getNombreMedico());
+        assertEquals("Particular", resultado.getTipoDireccion());
     }
 
     @Test
     public void updateDireccionTest_NotExists() {
         Direccion direccion = new Direccion();
-        direccion.setNombreMedico("Dr Pascal");
-        direccion.setMotivo("Tos");
-        direccion.setDiagnostico("Resfriado");
-        direccion.setTratamiento("Antibiotico");
-        direccion.setFechaConsulta("12-04-2024");
+        direccion.setCalle("Jardin Alto");
+        direccion.setNumero("8417");
+        direccion.setComuna("La Florida");
+        direccion.setCiudad("Santiago");
+        direccion.setRegion("Metropolitana");
+        direccion.setTipoDireccion("Particular");
         direccion.setId(2L);
+
         when(direccionRepositoryMock.existsById(2L)).thenReturn(false);
 
         Direccion resultado = direccionService.updateDireccion(2L, direccion);

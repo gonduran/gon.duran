@@ -28,29 +28,27 @@ public class UsuarioServiceTest {
     @Test
     public void getAllUsuariosTest() {
         Usuario usuario1 = new Usuario();
+        usuario1.setUsuario("gdurana");
+        usuario1.setPassword("password123");
+        usuario1.setHabilitado(true);
         usuario1.setNombre("Gonzalo");
         usuario1.setApellidoPaterno("Duran");
         usuario1.setApellidoMaterno("Adasme");
         usuario1.setRut("12959664-3");
-        usuario1.setDireccion("Araucaria 8417 La Florida");
         usuario1.setTelefono("+56977992993");
         usuario1.setEmail("gadurana@gmail.com");
-        usuario1.setFechaNacimiento("21-11-1976");
-        usuario1.setContactoEmerg(null);
-        usuario1.setTipoSangre(null);
         usuario1.setId(1L);
 
         Usuario usuario2 = new Usuario();
+        usuario2.setUsuario("jcartagenab");
+        usuario2.setPassword("password123");
+        usuario2.setHabilitado(true);
         usuario2.setNombre("Josefa");
         usuario2.setApellidoPaterno("Cartagena");
         usuario2.setApellidoMaterno("Bobadilla");
         usuario2.setRut("20165862-4");
-        usuario2.setDireccion("Calle Thiare 1195 Maipu");
         usuario2.setTelefono("+56993112428");
-        usuario2.setEmail("jcartagenac@gmail.com");
-        usuario2.setFechaNacimiento("05-01-1999");
-        usuario2.setContactoEmerg(null);
-        usuario2.setTipoSangre(null);
+        usuario2.setEmail("jcartagenab@gmail.com");
         usuario2.setId(2L);
 
         List<Usuario> usuarios = Arrays.asList(usuario1, usuario2);
@@ -67,16 +65,15 @@ public class UsuarioServiceTest {
     @Test
     public void getUsuarioByIdTest() {
         Usuario usuario = new Usuario();
+        usuario.setUsuario("gdurana");
+        usuario.setPassword("password123");
+        usuario.setHabilitado(true);
         usuario.setNombre("Gonzalo");
         usuario.setApellidoPaterno("Duran");
         usuario.setApellidoMaterno("Adasme");
         usuario.setRut("12959664-3");
-        usuario.setDireccion("Araucaria 8417 La Florida");
         usuario.setTelefono("+56977992993");
         usuario.setEmail("gadurana@gmail.com");
-        usuario.setFechaNacimiento("21-11-1976");
-        usuario.setContactoEmerg(null);
-        usuario.setTipoSangre(null);
         usuario.setId(1L);
 
         when(usuarioRepositoryMock.findById(1L)).thenReturn(Optional.of(usuario));
@@ -91,16 +88,15 @@ public class UsuarioServiceTest {
     public void createUsuarioTest() {
 
         Usuario usuario = new Usuario();
+        usuario.setUsuario("gdurana");
+        usuario.setPassword("password123");
+        usuario.setHabilitado(true);
         usuario.setNombre("Gonzalo");
         usuario.setApellidoPaterno("Duran");
         usuario.setApellidoMaterno("Adasme");
         usuario.setRut("12959664-3");
-        usuario.setDireccion("Araucaria 8417 La Florida");
         usuario.setTelefono("+56977992993");
         usuario.setEmail("gadurana@gmail.com");
-        usuario.setFechaNacimiento("21-11-1976");
-        usuario.setContactoEmerg(null);
-        usuario.setTipoSangre(null);
 
         when(usuarioRepositoryMock.save(any())).thenReturn(usuario);
 
@@ -112,17 +108,17 @@ public class UsuarioServiceTest {
     @Test
     public void updateUsuarioTest_Exists() {
         Usuario usuario = new Usuario();
+        usuario.setUsuario("gdurana");
+        usuario.setPassword("password123");
+        usuario.setHabilitado(true);
         usuario.setNombre("Gonzalo");
         usuario.setApellidoPaterno("Duran");
         usuario.setApellidoMaterno("Adasme");
         usuario.setRut("12959664-3");
-        usuario.setDireccion("Araucaria 8417 La Florida");
         usuario.setTelefono("+56977992993");
         usuario.setEmail("gadurana@gmail.com");
-        usuario.setFechaNacimiento("21-11-1976");
-        usuario.setContactoEmerg(null);
-        usuario.setTipoSangre(null);
         usuario.setId(1L);
+
         when(usuarioRepositoryMock.existsById(1L)).thenReturn(true);
         when(usuarioRepositoryMock.save(usuario)).thenReturn(usuario);
 
@@ -136,17 +132,17 @@ public class UsuarioServiceTest {
     @Test
     public void updatePacienteTest_NotExists() {
         Usuario usuario = new Usuario();
+        usuario.setUsuario("gdurana");
+        usuario.setPassword("password123");
+        usuario.setHabilitado(true);
         usuario.setNombre("Gonzalo");
         usuario.setApellidoPaterno("Duran");
         usuario.setApellidoMaterno("Adasme");
         usuario.setRut("12959664-3");
-        usuario.setDireccion("Araucaria 8417 La Florida");
         usuario.setTelefono("+56977992993");
         usuario.setEmail("gadurana@gmail.com");
-        usuario.setFechaNacimiento("21-11-1976");
-        usuario.setContactoEmerg(null);
-        usuario.setTipoSangre(null);
         usuario.setId(2L);
+
         when(usuarioRepositoryMock.existsById(2L)).thenReturn(false);
 
         Usuario resultado = usuarioService.updateUsuario(2L, usuario);
