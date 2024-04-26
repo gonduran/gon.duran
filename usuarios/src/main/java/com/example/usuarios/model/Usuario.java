@@ -14,11 +14,14 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Usuario")
-public class Usuario {
+public class Usuario extends RepresentationModel<Usuario> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

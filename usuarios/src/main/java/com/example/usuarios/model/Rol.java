@@ -1,6 +1,9 @@
 package com.example.usuarios.model;
 
 import java.util.List;
+
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +15,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "Rol")
-public class Rol {
+public class Rol extends RepresentationModel<Rol> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
