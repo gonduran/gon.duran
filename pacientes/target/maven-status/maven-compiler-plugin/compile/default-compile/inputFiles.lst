@@ -1,0 +1,16 @@
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\service\HistorialMedicoService.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\model\Paciente.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\repository\HistorialMedicoRepository.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\controller\PacienteController.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\repository\ConsultaRepository.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\service\ConsultaService.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\service\PacienteService.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\exception\PacienteBadRequestException.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\service\ConsultaServiceImpl.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\service\PacienteServiceImpl.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\exception\PacienteNotFoundException.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\model\Consulta.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\PacientesApplication.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\repository\PacienteRepository.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\service\HistorialMedicoServiceImpl.java
+C:\Users\gonzaloduranadasme\Documents\GitHub\gon.duran\pacientes\src\main\java\com\example\pacientes\model\HistorialMedico.java

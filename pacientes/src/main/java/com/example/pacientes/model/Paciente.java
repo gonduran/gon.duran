@@ -10,11 +10,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import java.util.List;
+
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Paciente")
-public class Paciente {
+public class Paciente extends RepresentationModel<Paciente> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,17 @@
+com\example\pacientes\service\PacienteService.class
+com\example\pacientes\service\ConsultaService.class
+com\example\pacientes\exception\PacienteBadRequestException.class
+com\example\pacientes\service\PacienteServiceImpl.class
+com\example\pacientes\controller\PacienteController.class
+com\example\pacientes\repository\ConsultaRepository.class
+com\example\pacientes\repository\PacienteRepository.class
+com\example\pacientes\model\Consulta.class
+com\example\pacientes\model\HistorialMedico.class
+com\example\pacientes\PacientesApplication.class
+com\example\pacientes\exception\PacienteNotFoundException.class
+com\example\pacientes\service\HistorialMedicoServiceImpl.class
+com\example\pacientes\controller\PacienteController$ErrorResponse.class
+com\example\pacientes\model\Paciente.class
+com\example\pacientes\service\HistorialMedicoService.class
+com\example\pacientes\service\ConsultaServiceImpl.class
+com\example\pacientes\repository\HistorialMedicoRepository.class

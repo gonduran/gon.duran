@@ -1,5 +1,7 @@
 package com.example.usuarios.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +15,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "Direccion")
-public class Direccion {
+public class Direccion extends RepresentationModel<Direccion> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
