@@ -98,34 +98,24 @@ public class PacienteControllerTest {
     @Test
     public void getAllConsultasTest() throws Exception {
         Consulta consulta1 = new Consulta();
-        consulta1.setNombre("Gonzalo");
-        consulta1.setApellidoPaterno("Duran");
-        consulta1.setApellidoMaterno("Adasme");
-        consulta1.setRut("12959664-3");
-        consulta1.setDireccion("Araucaria 8417 La Florida");
-        consulta1.setTelefono("+56977992993");
-        paciente1.setEmail("gadurana@gmail.com");
-        paciente1.setFechaNacimiento("21-11-1976");
-        paciente1.setContactoEmerg(null);
-        paciente1.setTipoSangre(null);
-        paciente1.setId(1L);
+        consulta1.setNombreMedico("Dr Pascal");
+        consulta1.setMotivo("Tos");
+        consulta1.setDiagnostico("Resfriado");
+        consulta1.setTratamiento("Antibiotico");
+        consulta1.setFechaConsulta("12-04-2024");
+        consulta1.setId(1L);
 
-        Consulta paciente2 = new Consulta();
-        paciente2.setNombre("Josefa");
-        paciente2.setApellidoPaterno("Cartagena");
-        paciente2.setApellidoMaterno("Bobadilla");
-        paciente2.setRut("20165862-4");
-        paciente2.setDireccion("Calle Thiare 1195 Maipu");
-        paciente2.setTelefono("+56993112428");
-        paciente2.setEmail("jcartagenac@gmail.com");
-        paciente2.setFechaNacimiento("05-01-1999");
-        paciente2.setContactoEmerg(null);
-        paciente2.setTipoSangre(null);
-        paciente2.setId(2L);
+        Consulta consulta2 = new Consulta();
+        consulta2.setNombreMedico("Dra Vilches");
+        consulta2.setMotivo("Dolor");
+        consulta2.setDiagnostico("Apendisitis");
+        consulta2.setTratamiento("Operación");
+        consulta2.setFechaConsulta("01-04-2010");
+        consulta2.setId(2L);
+    
+        List<Consulta> consultas = Arrays.asList(consulta1, consulta2);
 
-        List<Consulta> pacientes = Arrays.asList(paciente1, paciente2);
-
-        when(pacienteServiceMock.getAllConsultas()).thenReturn(pacientes);
+        when(consultaServiceMock.getAllConsultas()).thenReturn(consultas);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/consulta"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -133,25 +123,20 @@ public class PacienteControllerTest {
 
     @Test
     public void getConsultaByIdTest() throws Exception {
-        Consulta paciente = new Consulta();
-        paciente.setNombre("Gonzalo");
-        paciente.setApellidoPaterno("Duran");
-        paciente.setApellidoMaterno("Adasme");
-        paciente.setRut("12959664-3");
-        paciente.setDireccion("Araucaria 8417 La Florida");
-        paciente.setTelefono("+56977992993");
-        paciente.setEmail("gadurana@gmail.com");
-        paciente.setFechaNacimiento("21-11-1976");
-        paciente.setContactoEmerg(null);
-        paciente.setTipoSangre(null);
-        paciente.setId(1L);
+        Consulta consulta = new Consulta();
+        consulta.setNombreMedico("Dra Vilches");
+        consulta.setMotivo("Dolor");
+        consulta.setDiagnostico("Apendisitis");
+        consulta.setTratamiento("Operación");
+        consulta.setFechaConsulta("01-04-2010");
+        consulta.setId(1L);
 
-        when(pacienteServiceMock.getConsultaById(1L)).thenReturn(Optional.of(paciente));
+        when(consultaServiceMock.getConsultaById(1L)).thenReturn(Optional.of(consulta));
 
-        Optional<Consulta> resultado = pacienteServiceMock.getConsultaById(1L);
+        Optional<Consulta> resultado = consultaServiceMock.getConsultaById(1L);
 
         assertTrue(resultado.isPresent());
-        assertEquals("Gonzalo", resultado.get().getNombre());
+        assertEquals("Dra Vilches", resultado.get().getNombreMedico());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/consulta/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
