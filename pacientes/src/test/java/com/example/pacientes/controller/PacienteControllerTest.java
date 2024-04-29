@@ -13,6 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.example.pacientes.model.Paciente;
+import com.example.pacientes.model.Consulta;
+import com.example.pacientes.model.HistorialMedico;
 import com.example.pacientes.service.ConsultaService;
 import com.example.pacientes.service.HistorialMedicoService;
 import com.example.pacientes.service.PacienteService;
@@ -92,4 +94,69 @@ public class PacienteControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void getAllConsultasTest() throws Exception {
+        Consulta consulta1 = new Consulta();
+        consulta1.setNombre("Gonzalo");
+        consulta1.setApellidoPaterno("Duran");
+        consulta1.setApellidoMaterno("Adasme");
+        consulta1.setRut("12959664-3");
+        consulta1.setDireccion("Araucaria 8417 La Florida");
+        consulta1.setTelefono("+56977992993");
+        paciente1.setEmail("gadurana@gmail.com");
+        paciente1.setFechaNacimiento("21-11-1976");
+        paciente1.setContactoEmerg(null);
+        paciente1.setTipoSangre(null);
+        paciente1.setId(1L);
+
+        Consulta paciente2 = new Consulta();
+        paciente2.setNombre("Josefa");
+        paciente2.setApellidoPaterno("Cartagena");
+        paciente2.setApellidoMaterno("Bobadilla");
+        paciente2.setRut("20165862-4");
+        paciente2.setDireccion("Calle Thiare 1195 Maipu");
+        paciente2.setTelefono("+56993112428");
+        paciente2.setEmail("jcartagenac@gmail.com");
+        paciente2.setFechaNacimiento("05-01-1999");
+        paciente2.setContactoEmerg(null);
+        paciente2.setTipoSangre(null);
+        paciente2.setId(2L);
+
+        List<Consulta> pacientes = Arrays.asList(paciente1, paciente2);
+
+        when(pacienteServiceMock.getAllConsultas()).thenReturn(pacientes);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/consulta"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getConsultaByIdTest() throws Exception {
+        Consulta paciente = new Consulta();
+        paciente.setNombre("Gonzalo");
+        paciente.setApellidoPaterno("Duran");
+        paciente.setApellidoMaterno("Adasme");
+        paciente.setRut("12959664-3");
+        paciente.setDireccion("Araucaria 8417 La Florida");
+        paciente.setTelefono("+56977992993");
+        paciente.setEmail("gadurana@gmail.com");
+        paciente.setFechaNacimiento("21-11-1976");
+        paciente.setContactoEmerg(null);
+        paciente.setTipoSangre(null);
+        paciente.setId(1L);
+
+        when(pacienteServiceMock.getConsultaById(1L)).thenReturn(Optional.of(paciente));
+
+        Optional<Consulta> resultado = pacienteServiceMock.getConsultaById(1L);
+
+        assertTrue(resultado.isPresent());
+        assertEquals("Gonzalo", resultado.get().getNombre());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/consulta/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
+
 }

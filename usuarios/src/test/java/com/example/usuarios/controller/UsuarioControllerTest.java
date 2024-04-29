@@ -13,6 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.example.usuarios.model.Usuario;
+import com.example.usuarios.model.Direccion;
+import com.example.usuarios.model.Rol;
 import com.example.usuarios.service.UsuarioService;
 import com.example.usuarios.service.DireccionService;
 import com.example.usuarios.service.RolService;
@@ -87,6 +89,91 @@ public class UsuarioControllerTest {
         assertEquals("Gonzalo", resultado.get().getNombre());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getAllDireccionesTest() throws Exception {
+        Direccion direccion1 = new Direccion();
+        direccion1.setCalle("Pasaje Araucaria");
+        direccion1.setNumero("8417");
+        direccion1.setComuna("La Florida");
+        direccion1.setCiudad("Santiago");
+        direccion1.setRegion("Metropolitana");
+        direccion1.setTipoDireccion("Particular");
+        direccion1.setId(1L);
+
+        Direccion direccion2 = new Direccion();
+        direccion2.setCalle("Catadral");
+        direccion2.setNumero("1441");
+        direccion2.setComuna("Santiago");
+        direccion2.setCiudad("Santiago");
+        direccion2.setRegion("Metropolitana");
+        direccion2.setTipoDireccion("Comercial");
+        direccion2.setId(2L);
+
+        List<Direccion> direcciones = Arrays.asList(direccion1, direccion2);
+
+        when(direccionServiceMock.getAllDirecciones()).thenReturn(direcciones);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/direccion"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getDireccionByIdTest() throws Exception {
+        Direccion direccion = new Direccion();
+        direccion.setCalle("Pasaje Araucaria");
+        direccion.setNumero("8417");
+        direccion.setComuna("La Florida");
+        direccion.setCiudad("Santiago");
+        direccion.setRegion("Metropolitana");
+        direccion.setTipoDireccion("Particular");
+        direccion.setId(1L);
+
+        when(direccionServiceMock.getDireccionById(1L)).thenReturn(Optional.of(direccion));
+
+        Optional<Direccion> resultado = direccionServiceMock.getDireccionById(1L);
+
+        assertTrue(resultado.isPresent());
+        assertEquals("Pasaje Araucaria", resultado.get().getCalle());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/direccion/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getAllRolUsuariosTest() throws Exception {
+        Rol rol1 = new Rol();
+        rol1.setDescripcion("Administrador");
+        rol1.setId(1L);
+
+        Rol rol2 = new Rol();
+        rol1.setDescripcion("Administrador");
+        rol2.setId(2L);
+
+        List<Rol> roles = Arrays.asList(rol1, rol2);
+
+        when(rolUsuarioServiceMock.getAllRolUsuarios()).thenReturn(roles);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/rolusuario"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getRolUsuarioByIdTest() throws Exception {
+        Rol rol = new Rol();
+        rol.setDescripcion("Administrador");
+        rol.setId(1L);
+
+        when(rolUsuarioServiceMock.getRolUsuarioById(1L)).thenReturn(Optional.of(rol));
+
+        Optional<Rol> resultado = rolUsuarioServiceMock.getRolUsuarioById(1L);
+
+        assertTrue(resultado.isPresent());
+        assertEquals("Administrador", resultado.get().getDescripcion());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/rolusuario/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
