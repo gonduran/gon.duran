@@ -314,7 +314,7 @@ public class UsuarioController {
                     .body(new ErrorResponse("Usuario o contraseña incorrectos."));
         }
     }
-    
+  
     static class ErrorResponse {
         private final String message;
     

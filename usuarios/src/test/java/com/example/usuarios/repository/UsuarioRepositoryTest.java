@@ -35,4 +35,26 @@ public class UsuarioRepositoryTest {
         assertEquals("Gonzalo", resultado.getNombre());
         assertEquals("gdurana", resultado.getUsuario());
     }
+
+    @Test
+    public void obtenerUsuarioPorIdTest() {
+        Usuario usuario = new Usuario();
+        usuario.setUsuario("gdurana");
+        usuario.setPassword("password123");
+        usuario.setHabilitado(true);
+        usuario.setNombre("Gonzalo");
+        usuario.setApellidoPaterno("Duran");
+        usuario.setApellidoMaterno("Adasme");
+        usuario.setRut("12959664-3");
+        usuario.setTelefono("+56977992993");
+        usuario.setEmail("gadurana@gmail.com");
+        usuario.setId(1L);
+
+        Usuario resultado = usuarioRepository.findById(1L).get();
+
+        assertNotNull(resultado.getId());
+        assertEquals(usuario.getId(), resultado.getId());
+        assertEquals(usuario.getNombre(), resultado.getNombre());
+    }
+
 }

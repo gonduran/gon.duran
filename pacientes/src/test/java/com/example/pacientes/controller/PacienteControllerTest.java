@@ -142,6 +142,65 @@ public class PacienteControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public void getAllHistorialMedicosTest() throws Exception {
+        HistorialMedico historialMedico1 = new HistorialMedico();
+        historialMedico1.setNombreMedico("Dra Vilches");
+        historialMedico1.setFechaHistorialMedico("01-04-2010");
+        historialMedico1.setAntecedentes("Rinitis Alergica");
+        historialMedico1.setEstudios(null);
+        historialMedico1.setInternaciones(null);
+        historialMedico1.setOperaciones(null);
+        historialMedico1.setTratamientos(null);
+        historialMedico1.setMedicamentos("Rigotax");
+        historialMedico1.setExamenes(null);
+        historialMedico1.setId(1L);
+
+        HistorialMedico historialMedico2 = new HistorialMedico();
+        historialMedico2.setNombreMedico("Dra Vilches");
+        historialMedico2.setFechaHistorialMedico("01-04-2010");
+        historialMedico2.setAntecedentes("Rinitis Alergica");
+        historialMedico2.setEstudios(null);
+        historialMedico2.setInternaciones(null);
+        historialMedico2.setOperaciones(null);
+        historialMedico2.setTratamientos(null);
+        historialMedico2.setMedicamentos("Rigotax");
+        historialMedico2.setExamenes(null);
+        historialMedico2.setId(2L);
+    
+        List<HistorialMedico> historialesMedicos = Arrays.asList(historialMedico1, historialMedico2);
+
+        when(historialMedicoServiceMock.getAllHistorialMedicos()).thenReturn(historialesMedicos);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/historialmedico"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getHistorialMedicoByIdTest() throws Exception {
+        HistorialMedico historialMedico = new HistorialMedico();
+        historialMedico.setNombreMedico("Dra Vilches");
+        historialMedico.setFechaHistorialMedico("01-04-2010");
+        historialMedico.setAntecedentes("Rinitis Alergica");
+        historialMedico.setEstudios(null);
+        historialMedico.setInternaciones(null);
+        historialMedico.setOperaciones(null);
+        historialMedico.setTratamientos(null);
+        historialMedico.setMedicamentos("Rigotax");
+        historialMedico.setExamenes(null);
+        historialMedico.setId(1L);
+
+        when(historialMedicoServiceMock.getHistorialMedicoById(1L)).thenReturn(Optional.of(historialMedico));
+
+        Optional<HistorialMedico> resultado = historialMedicoServiceMock.getHistorialMedicoById(1L);
+
+        assertTrue(resultado.isPresent());
+        assertEquals("Dra Vilches", resultado.get().getNombreMedico());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/pacientes/historialmedico/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
 
 
 }
