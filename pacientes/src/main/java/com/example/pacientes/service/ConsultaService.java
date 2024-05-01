@@ -10,4 +10,5 @@ public interface ConsultaService {
     Consulta createConsulta(Consulta consulta);
     Consulta updateConsulta(Long id,Consulta consulta);
     void deleteConsulta(Long id);
+    List<Consulta> getAllConsultasPacienteById(Long id);
 }

@@ -70,7 +70,8 @@ public class PacienteController {
         log.info("Devuelve la informacion de todas las consulta");
         List<EntityModel<Consulta>> consultasResources = consultas.stream()
             .map( consulta -> EntityModel.of(consulta,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getConsultaById(consulta.getId())).withSelfRel()
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getConsultaById(consulta.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteConsulta(consulta.getId())).withRel("delete")
             ))
             .collect(Collectors.toList());
 
@@ -88,7 +89,8 @@ public class PacienteController {
         log.info("Devuelve la informacion de todo el historial medico");
         List<EntityModel<HistorialMedico>> historialMedicosResources = historialMedicos.stream()
             .map( historialMedico -> EntityModel.of(historialMedico,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getHistorialMedicoById(historialMedico.getId())).withSelfRel()
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getHistorialMedicoById(historialMedico.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteHistorialMedico(historialMedico.getId())).withRel("delete")
             ))
             .collect(Collectors.toList());
 
@@ -108,6 +110,7 @@ public class PacienteController {
             log.info("Se encontró el paciente con ID {}", idPaciente);
             return EntityModel.of(paciente.get(),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getPacienteById(idPaciente)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deletePaciente(idPaciente)).withRel("delete"),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllPacientes()).withRel("all-pacientes"));
         } else {
             log.error("No se encontró el paciente con ID {}", idPaciente);
@@ -125,6 +128,7 @@ public class PacienteController {
             log.info("Se encontró la consulta con ID {}", idConsulta);
             return EntityModel.of(consulta.get(),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getConsultaById(idConsulta)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteConsulta(idConsulta)).withRel("delete"),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllConsultas()).withRel("all-consultas"));
         } else {
             log.error("No se encontró la consulta con ID {}", idConsulta);
@@ -142,6 +146,7 @@ public class PacienteController {
             log.info("Se encontró el historial medico con ID {}", idHistorialMedico);
             return EntityModel.of(historialMedico.get(),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getHistorialMedicoById(idHistorialMedico)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteHistorialMedico(idHistorialMedico)).withRel("delete"),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllHistorialMedicos()).withRel("all-historialmedicos"));
         } else {
             log.error("No se encontró el historial medico con ID {}", idHistorialMedico);
@@ -310,35 +315,61 @@ public class PacienteController {
             return message;
         }
     }
-/*
-    //devuelve la informacion de las consultas de un paciente especifico
-    @GetMapping(path = "/pacientes/{idPaciente}/consultas")
-	public List<Consulta> listarConsultas(@PathVariable("idPaciente") int idPaciente) {
 
-		for (Paciente paciente : pacientes) {
-			if (paciente.getIdPaciente() == idPaciente) {
-				List<Consulta> consultas = paciente.getConsultas();
-                System.out.println("Devuelve la informacion de las consultas del paciente " + idPaciente);
-                return consultas;
-			}
-		}
-        System.out.println("No encontro información de las consultas del paciente " + idPaciente);
-		return null;
-	}
+    //devuelve la informacion de las consultas de un paciente especifico
+    @GetMapping(path = "/{idPaciente}/consultas")
+    public CollectionModel<EntityModel<Consulta>> listarConsultasPaciente(@Validated @PathVariable("idPaciente") Long idPaciente) {
+        log.info("GET /pacientes/{idPaciente}/consultas");
+        log.info("Se ejecuta listarConsultasPaciente {}", idPaciente);
+        
+        List<Consulta> consultas = consultaService.getAllConsultasPacienteById(idPaciente);
+        if (consultas.isEmpty()) {
+            log.error("No se encontró consultas para ID Paciente {} ", idPaciente);
+            throw new PacienteNotFoundException("No se encontró consultas con ID Paciente: " + idPaciente);
+
+        } else {
+            log.info("Se encontró consultas con ID Paciente {}", idPaciente);
+            List<EntityModel<Consulta>> consultasResources = consultas.stream()
+            .map( consulta -> EntityModel.of(consulta,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getConsultaById(consulta.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteConsulta(consulta.getId())).withRel("delete")
+            ))
+            .collect(Collectors.toList());
+
+            WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).listarConsultasPaciente(idPaciente));
+            CollectionModel<EntityModel<Consulta>> resources = CollectionModel.of(consultasResources, linkTo.withRel("all-consultas-paciente"));
+
+            return resources;
+        }
+
+    }
 
     //devuelve la informacion del historial medico de un paciente especifico
-    @GetMapping(path = "/pacientes/{idPaciente}/historialmedico")
-	public List<HistorialMedico> listarHistorialMedico(@PathVariable("idPaciente") int idPaciente) {
+    @GetMapping(path = "/{idPaciente}/historialmedicos")
+    public CollectionModel<EntityModel<HistorialMedico>> listarHistorialMedicoPaciente(@Validated @PathVariable("idPaciente") Long idPaciente) {
+        log.info("GET /pacientes/{idPaciente}/historialMedicos");
+        log.info("Se ejecuta listarHistorialMedicoPaciente {}", idPaciente);
+        
+        List<HistorialMedico> historialMedicos = historialMedicoService.getAllHistorialMedicosPacienteById(idPaciente);
+        if (historialMedicos.isEmpty()) {
+            log.error("No se encontró historial medico para ID Paciente {} ", idPaciente);
+            throw new PacienteNotFoundException("No se encontró historial medico con ID Paciente: " + idPaciente);
 
-		for (Paciente paciente : pacientes) {
-			if (paciente.getIdPaciente() == idPaciente) {
-				List<HistorialMedico> historialMedico = paciente.getHistorialMedico();
-                System.out.println("Devuelve la informacion del historial medico del paciente " + idPaciente);
-                return historialMedico;
-			}
-		}
-        System.out.println("No encontro información del historial medico del paciente " + idPaciente);
-		return null;
-	}
-*/
+        } else {
+            log.info("Se encontró historial medicos con ID Paciente {}", idPaciente);
+            List<EntityModel<HistorialMedico>> historialMedicosResources = historialMedicos.stream()
+            .map( historialMedico -> EntityModel.of(historialMedico,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getHistorialMedicoById(historialMedico.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteHistorialMedico(historialMedico.getId())).withRel("delete")
+            ))
+            .collect(Collectors.toList());
+
+            WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).listarHistorialMedicoPaciente(idPaciente));
+            CollectionModel<EntityModel<HistorialMedico>> resources = CollectionModel.of(historialMedicosResources, linkTo.withRel("all-historialmedicos-paciente"));
+
+            return resources;
+        }
+
+    }
+
 }

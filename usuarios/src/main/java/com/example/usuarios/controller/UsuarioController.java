@@ -53,7 +53,8 @@ public class UsuarioController {
         log.info("Devuelve la informacion de todos los usuarios");
         List<EntityModel<Usuario>> usuariosResources = usuarios.stream()
             .map( usuario -> EntityModel.of(usuario,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsuarioById(usuario.getId())).withSelfRel()
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsuarioById(usuario.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteUsuario(usuario.getId())).withRel("delete")
             ))
             .collect(Collectors.toList());
 
@@ -71,7 +72,8 @@ public class UsuarioController {
         log.info("Devuelve la informacion de todas las direcciones");
         List<EntityModel<Direccion>> direccionesResources = direcciones.stream()
             .map( direccion -> EntityModel.of(direccion,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getDireccionById(direccion.getId())).withSelfRel()
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getDireccionById(direccion.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteDireccion(direccion.getId())).withRel("delete")
             ))
             .collect(Collectors.toList());
 
@@ -89,7 +91,8 @@ public class UsuarioController {
         log.info("Devuelve la informacion de todos los rol usuarios");
         List<EntityModel<Rol>> rolUsuariosResources = rolUsuarios.stream()
             .map( rolUsuario -> EntityModel.of(rolUsuario,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getRolUsuarioById(rolUsuario.getId())).withSelfRel()
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getRolUsuarioById(rolUsuario.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteRolUsuario(rolUsuario.getId())).withRel("delete")
             ))
             .collect(Collectors.toList());
 
@@ -109,6 +112,7 @@ public class UsuarioController {
             log.info("Se encontró el usuario con ID {}", idUsuario);
             return EntityModel.of(usuario.get(),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsuarioById(idUsuario)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteUsuario(idUsuario)).withRel("delete"),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllUsuarios()).withRel("all-usuarios"));
         } else {
             log.error("No se encontró el usuario con ID {}", idUsuario);
@@ -126,6 +130,7 @@ public class UsuarioController {
             log.info("Se encontró la direccion con ID {}", idDireccion);
             return EntityModel.of(direccion.get(),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getDireccionById(idDireccion)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteDireccion(idDireccion)).withRel("delete"),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllDirecciones()).withRel("all-direcciones"));
         } else {
             log.error("No se encontró la direccion con ID {}", idDireccion);
@@ -143,6 +148,7 @@ public class UsuarioController {
             log.info("Se encontró el rol usuario con ID {}", idRolUsuario);
             return EntityModel.of(historialMedico.get(),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getRolUsuarioById(idRolUsuario)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteRolUsuario(idRolUsuario)).withRel("delete"),
                 WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllRolUsuarios()).withRel("all-rolusuarios"));
         } else {
             log.error("No se encontró el rol usuario con ID {}", idRolUsuario);
@@ -325,6 +331,34 @@ public class UsuarioController {
         public String getMessage() {
             return message;
         }
+    }
+
+    //devuelve la informacion de las direcciones de un usuario especifico
+    @GetMapping(path = "/{idUsuario}/direcciones")
+    public CollectionModel<EntityModel<Direccion>> listarDireccionesUsuario(@Validated @PathVariable("idUsuario") Long idUsuario) {
+        log.info("GET /usuarios/{idUsuario}/direcciones");
+        log.info("Se ejecuta listarDireccionesUsuario {}", idUsuario);
+        
+        List<Direccion> direcciones = direccionService.getAllDireccionesUsuarioById(idUsuario);
+        if (direcciones.isEmpty()) {
+            log.error("No se encontró direcciones para ID Usuario {} ", idUsuario);
+            throw new UsuarioNotFoundException("No se encontró direcciones con ID Usuario: " + idUsuario);
+
+        } else {
+            log.info("Se encontró direcciones con ID Usuario {}", idUsuario);
+            List<EntityModel<Direccion>> direccionesResources = direcciones.stream()
+            .map( direccion -> EntityModel.of(direccion,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getDireccionById(direccion.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).deleteDireccion(direccion.getId())).withRel("delete")
+            ))
+            .collect(Collectors.toList());
+
+            WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).listarDireccionesUsuario(idUsuario));
+            CollectionModel<EntityModel<Direccion>> resources = CollectionModel.of(direccionesResources, linkTo.withRel("all-direcciones-usuario"));
+
+            return resources;
+        }
+
     }
 
 }

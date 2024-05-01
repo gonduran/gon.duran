@@ -10,4 +10,5 @@ public interface DireccionService {
     Direccion createDireccion(Direccion direccion);
     Direccion updateDireccion(Long id,Direccion direccion);
     void deleteDireccion(Long id);
+    List<Direccion> getAllDireccionesUsuarioById(Long id);
 }
