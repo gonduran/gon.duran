@@ -43,4 +43,5 @@ public class PacienteServiceImpl implements PacienteService{
     public void deletePaciente(Long id){
         pacienteRepository.deleteById(id);
     }
+
 }

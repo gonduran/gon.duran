@@ -9,5 +9,6 @@ public interface HistorialMedicoService {
     Optional<HistorialMedico> getHistorialMedicoById(Long id);
     HistorialMedico createHistorialMedico(HistorialMedico historialMedico);
     HistorialMedico updateHistorialMedico(Long id,HistorialMedico historialMedico);
-    void deleteHistorialMedico(Long id); 
+    void deleteHistorialMedico(Long id);
+    List<HistorialMedico> getAllHistorialMedicosPacienteById(Long id);
 }

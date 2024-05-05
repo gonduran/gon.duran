@@ -43,4 +43,10 @@ public class ConsultaServiceImpl  implements ConsultaService{
     public void deleteConsulta(Long id){
         consultaRepository.deleteById(id);
     }
+
+    @Override
+    public List<Consulta> getAllConsultasPacienteById(Long id){
+        return consultaRepository.findByPacienteId(id);
+    }
+
 }

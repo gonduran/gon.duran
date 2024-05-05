@@ -26,4 +26,18 @@ public class RolRepositoryTest {
         assertNotNull(resultado.getId());
         assertEquals("Administrador", resultado.getDescripcion());
     }
+
+    @Test
+    public void obtenerRolUsuarioPorIdTest() {
+        Rol rol = new Rol();
+        rol.setDescripcion("Administrador");
+        rol.setId(1L);
+
+        Rol resultado = rolRepository.findById(1L).get();
+
+        assertNotNull(resultado.getId());
+        assertEquals(rol.getId(), resultado.getId());
+        assertEquals(rol.getDescripcion(), resultado.getDescripcion());
+    }
+
 }

@@ -2,12 +2,10 @@ package com.example.pacientes.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
 import com.example.pacientes.model.Paciente;
 
 @DataJpaTest
@@ -35,4 +33,27 @@ public class PacienteRepositoryTest {
         assertNotNull(resultado.getId());
         assertEquals("Gonzalo", resultado.getNombre());
     }
+
+    @Test
+    public void obtenerPacientePorIdTest() {
+        Paciente paciente = new Paciente();
+        paciente.setNombre("Gonzalo");
+        paciente.setApellidoPaterno("Duran");
+        paciente.setApellidoMaterno("Adasme");
+        paciente.setRut("12959664-3");
+        paciente.setDireccion("Araucaria 8417 La Florida");
+        paciente.setTelefono("+56977992993");
+        paciente.setEmail("gadurana@gmail.com");
+        paciente.setFechaNacimiento("21-11-1976");
+        paciente.setContactoEmerg(null);
+        paciente.setTipoSangre(null);
+        paciente.setId(1L);
+
+        Paciente resultado = pacienteRepository.findById(1L).get();
+
+        assertNotNull(resultado.getId());
+        assertEquals(paciente.getId(), resultado.getId());
+        assertEquals(paciente.getNombre(), resultado.getNombre());
+    }
+
 }

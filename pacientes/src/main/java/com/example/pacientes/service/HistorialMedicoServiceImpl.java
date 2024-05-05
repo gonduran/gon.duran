@@ -2,10 +2,8 @@ package com.example.pacientes.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.pacientes.model.HistorialMedico;
 import com.example.pacientes.repository.HistorialMedicoRepository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -43,4 +41,10 @@ public class HistorialMedicoServiceImpl implements HistorialMedicoService{
     public void deleteHistorialMedico(Long id){
         historialMedicoRepository.deleteById(id);
     }
+
+    @Override
+    public List<HistorialMedico> getAllHistorialMedicosPacienteById(Long id){
+        return historialMedicoRepository.findByPacienteId(id);
+    }
+
 }
